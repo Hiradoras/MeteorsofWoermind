@@ -7,7 +7,7 @@ pygame.init()
 from pygame import mixer
 
 
-crash_FX = mixer.Sound("D:\Pygame Projects\PyGameDenemeler\crash.wav")
+crash_FX = mixer.Sound("crash.wav")
 pygame.mixer.Sound.set_volume(crash_FX, 20)
 
 
@@ -35,7 +35,7 @@ gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption("Woermind")
 clock = pygame.time.Clock()
 
-playerImg = pygame.image.load('D:\Pygame Projects\PyGameDenemeler\player.png')
+playerImg = pygame.image.load('player.png')
 player_x = playerImg.get_size()[0]
 player_y = playerImg.get_size()[1]
 
@@ -145,7 +145,7 @@ def pause_text(text, font):
 #######################################
 def paused():
     
-    mixer.music.load('D:\Pygame Projects\PyGameDenemeler\pygame_gameplay_music.wav')
+    mixer.music.load('pygame_gameplay_music.wav')
     mixer.music.play(-1)
     while pause:
         for event in pygame.event.get():
@@ -171,7 +171,7 @@ def paused():
 #######################################
 def game_intro():
     intro = True
-    mixer.music.load('D:\Pygame Projects\PyGameDenemeler\pygame_intro_music.wav')
+    mixer.music.load('pygame_intro_music.wav')
     mixer.music.play(-1)
     while intro:
         for event in pygame.event.get():
@@ -198,7 +198,7 @@ def game_intro():
 #######################################
 def credits_screen():
     credits = True
-    mixer.music.load('D:\Pygame Projects\PyGameDenemeler\pygame_credits_music.wav')
+    mixer.music.load('pygame_credits_music.wav')
     mixer.music.play(-1)
     while credits:
         for event in pygame.event.get():
@@ -236,7 +236,7 @@ def game_loop():
     global pause 
 
 
-    mixer.music.load('D:\Pygame Projects\PyGameDenemeler\pygame_gameplay_music.wav')
+    mixer.music.load('pygame_gameplay_music.wav')
     mixer.music.play(-1)
     x = display_width * 0.45
     y = display_height * 0.8
