@@ -79,9 +79,15 @@ def menu_screen(dodged,level):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    game_loop()
+                if event.key == pygame.K_ESCAPE:
+                    game_intro() 
         gameDisplay.fill(red)
         largeText = pygame.font.Font('freesansbold.ttf',50)
         smallText = pygame.font.Font('freesansbold.ttf',30)
+        miniText = pygame.font.Font('freesansbold.ttf',15)
         #Score
         textScore, textScoreRect = intro_text("SCORE: "+str(dodged), smallText)
         textScoreRect.center = ((display_width/2),(display_height/2)-60)
@@ -98,7 +104,15 @@ def menu_screen(dodged,level):
         gameDisplay.blit(textSurf,textRect)
 
         button("YES", 150,400,100,50,green,bright_green,game_loop)
+        textSurf, textRext = intro_text("or 'ENTER'", miniText)
+        textRect= (160,435)
+        gameDisplay.blit(textSurf,textRect)
+
         button("NO", 350,400,100,50,purple,bright_purple,game_intro)
+        textSurf, textRext = intro_text("or 'ESC'", miniText)
+        textRect= (370,435)
+        gameDisplay.blit(textSurf,textRect)
+
         pygame.display.update()
         clock.tick(15)
 #######################################
