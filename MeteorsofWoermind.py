@@ -30,6 +30,7 @@ bright_purple = (102,0,204)
 blue = (0, 87, 173)
 bright_blue = (64, 159, 255)
 
+shadow = (150, 150, 150)
 
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption("Woermind")
@@ -190,12 +191,93 @@ def game_intro():
     intro = True
     mixer.music.load('pygame_intro_music.wav')
     mixer.music.play(-1)
+
+    thing3_width = 30
+    thing3_height = 30
+    thing3_startx = random.randrange(0,display_width-thing3_width)
+    thing3_starty =  -600
+    thing3_speed = 35
+
+    thing_width = 100
+    thing_height = 100
+    thing_startx = random.randrange(0,display_width-thing_width)
+    thing_starty =  -600
+    thing_speed = 20
+
+    thing2_width = 30
+    thing2_height = 30
+    thing2_startx = random.randrange(0,display_width-thing2_width)
+    thing2_starty =  -600
+    thing2_speed = 25
+
+    thing4_width = 60
+    thing4_height = 60
+    thing4_startx = random.randrange(0,display_width-thing4_width)
+    thing4_starty =  660
+    thing4_speed = 25
+
+    thing5_width = 80
+    thing5_height = 80
+    thing5_startx = random.randrange(0,display_width-thing5_width)
+    thing5_starty =  -680
+    thing5_speed = 25
+
+    thing6_width = 20
+    thing6_height = 20
+    thing6_startx = random.randrange(0,display_width-thing6_width)
+    thing6_starty =  -680
+    thing6_xspeed = 30
+    thing6_yspeed = 5
+
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+        
         gameDisplay.fill(white)
+
+        things(thing3_startx, thing3_starty,thing3_width, thing3_height,bright_purple)
+        thing3_starty += thing3_speed
+        if thing3_starty > display_height:
+            thing3_starty = 0 - thing3_height
+            thing3_startx = random.randrange(0, display_width-thing_width)
+
+        things(thing_startx, thing_starty,thing_width, thing_height,shadow)
+        thing_starty += thing_speed
+        if thing_starty > display_height:
+            thing_starty = 0 - thing_height
+            thing_startx = random.randrange(0, display_width-thing_width)
+
+        things(thing2_startx, thing2_starty,thing2_width, thing2_height,red)
+        thing2_starty += thing2_speed
+        if thing2_starty > display_height:
+            thing2_starty = 0 - thing2_height
+            thing2_startx = random.randrange(0, display_width-thing_width)
+
+        things(thing4_startx, thing4_starty,thing4_width, thing4_height,bright_blue)
+        thing4_starty -= thing4_speed
+        if thing4_starty < 0:
+            thing4_starty = 660
+            thing4_startx = random.randrange(0, display_width-thing_width)
+        
+        things(thing5_startx, thing5_starty,thing5_width, thing5_height,bright_green)
+        thing5_starty -= thing5_speed
+        if thing5_starty < 0:
+            thing5_starty = 680
+            thing5_startx = random.randrange(0, display_width-thing_width)
+
+        things(thing6_startx, thing6_starty,thing6_width, thing6_height,blue)
+        thing6_starty += thing6_yspeed
+        thing6_startx += thing6_xspeed
+        if thing6_starty > display_height:
+            thing6_starty = 0 - thing6_height
+            thing6_startx = random.randrange(0, display_width-thing_width)
+            
+        if thing6_startx > display_width - thing6_width or thing6_startx < 0:
+            thing6_xspeed *= -1
+           
+
         largeText = pygame.font.Font('freesansbold.ttf',50)
         smallText = pygame.font.Font('freesansbold.ttf',20)
         textSurf, textRect = intro_text("Meteors of Woermind", largeText)
@@ -211,7 +293,7 @@ def game_intro():
         button("CREDITS", 250,450,100,50,blue,bright_blue,credits_screen)
         button("HOW TO", 250,500,100,50,blue,bright_blue,how_to_screen)
         pygame.display.update()
-        clock.tick(15)
+        clock.tick(60)
 
 #######################################
 def how_to_screen():
