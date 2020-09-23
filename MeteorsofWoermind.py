@@ -32,6 +32,8 @@ bright_blue = (64, 159, 255)
 
 shadow = (150, 150, 150)
 
+orange = (255,100,10)
+
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption("Woermind")
 clock = pygame.time.Clock()
@@ -222,10 +224,10 @@ def game_intro():
     thing5_starty =  -680
     thing5_speed = 25
 
-    thing6_width = 20
-    thing6_height = 20
+    thing6_width = 40
+    thing6_height = 40
     thing6_startx = random.randrange(0,display_width-thing6_width)
-    thing6_starty =  -680
+    thing6_starty =  -600
     thing6_xspeed = 30
     thing6_yspeed = 5
 
@@ -267,7 +269,7 @@ def game_intro():
             thing5_starty = 680
             thing5_startx = random.randrange(0, display_width-thing_width)
 
-        things(thing6_startx, thing6_starty,thing6_width, thing6_height,blue)
+        things(thing6_startx, thing6_starty,thing6_width, thing6_height,orange)
         thing6_starty += thing6_yspeed
         thing6_startx += thing6_xspeed
         if thing6_starty > display_height:
