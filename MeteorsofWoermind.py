@@ -152,6 +152,9 @@ def paused():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p or event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    unpause()
         #gameDisplay.fill(white)
         largeText = pygame.font.Font('freesansbold.ttf',50)
         smallText = pygame.font.Font('freesansbold.ttf',20)
@@ -192,9 +195,42 @@ def game_intro():
         button("START", 150,450,100,50,green,bright_green,game_loop)
         button("QUIT", 350,450,100,50,red,bright_red,quit_game)
         button("CREDITS", 250,450,100,50,blue,bright_blue,credits_screen)
+        button("HOW TO", 250,500,100,50,blue,bright_blue,how_to_screen)
         pygame.display.update()
         clock.tick(15)
 
+#######################################
+def how_to_screen():
+    how_to = True
+    mixer.music.load('pygame_credits_music.wav')
+    mixer.music.play(-1)
+    while how_to:
+        for event in pygame.event.get():
+            if event.type== pygame.QUIT:
+                pygame.quit()
+                quit()
+        gameDisplay.fill(white)
+
+        smallText = pygame.font.Font('freesansbold.ttf',18)
+        textSurf, textRect = intro_text("When you reach 10 score, game will be harder.", smallText)
+        textRect.center = ((display_width/2),(display_height/10))
+        gameDisplay.blit(textSurf,textRect)
+
+        textSurf, textRect = intro_text("And same when you reach score 15, 2 new block will start to fall.", smallText)
+        textRect.center = ((display_width/2),(display_height/10+20))
+        gameDisplay.blit(textSurf,textRect)
+
+        textSurf, textRect = intro_text("You can pause the game with pressing 'P' key.", smallText)
+        textRect.center = ((display_width/2),(display_height/10+40))
+        gameDisplay.blit(textSurf,textRect)
+
+        textSurf, textRect = intro_text("Try to dodge blocks by the way!", smallText)
+        textRect.center = ((display_width/2),(display_height/10+60))
+        gameDisplay.blit(textSurf,textRect)
+
+        button("Menu", 250,550,100,50,red,bright_red,game_intro)
+        pygame.display.update()
+        clock.tick(15)
 #######################################
 def credits_screen():
     credits = True
@@ -234,8 +270,6 @@ def credits_screen():
 #######################################
 def game_loop():
     global pause 
-
-
     mixer.music.load('pygame_gameplay_music.wav')
     mixer.music.play(-1)
     x = display_width * 0.45
@@ -353,7 +387,7 @@ def game_loop():
                 if thing2_speed <= thing2_minspeed:
                     thing2_speed += random.randrange(5,30)
         #Next Level
-        if dodged>= 16:
+        if dodged>= 15:
             level = 3
             things(thing3_startx, thing3_starty,thing3_width, thing3_height,blue)
             thing3_starty += thing3_yspeed
@@ -384,9 +418,13 @@ def game_loop():
         player(x,y)
         things_dodged(dodged, level)
         #LOGICS##################################################
-        if x > display_width - player_x or x < 0:   
-            crash_FX.play()       
-            crash(dodged, level)
+        #!!! Canceled make player dead when he touch the edges !!!
+        if x > display_width - player_x:
+            x = display_width - player_x
+            #crash_FX.play()       
+            # crash(dodged, level)
+        if x < 0:
+            x = 0
         ##########################################
         if thing_starty > display_height:
             thing_starty = 0 - thing_height
